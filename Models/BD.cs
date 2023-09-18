@@ -1,6 +1,6 @@
 using System.Data.SqlClient;
 using Dapper;
-namespace TP7_PreguntadORT.Models;
+
 public static class BD
 {
     public static string _connectionString = @"Server=LOCALHOST;
@@ -17,13 +17,13 @@ public static class BD
         return ListadoAlumnos;
     }
 
-    public static List<Alumno> GetDetalleAlumno(string legajo)
+    public static Alumno GetDetalleAlumnos(string legajo)
     {
-        List<Alumno> alumno = new List<Alumno>();
+        Alumno alumno= null ;
         using (SqlConnection BD = new SqlConnection(_connectionString))
         {
             string sql = "SELECT Nombre, Apellido, Curso FROM Alumnos WHERE Legajo = @legajo;";
-            alumno = BD.Query<Alumno>(sql).ToList();
+            alumno = BD.QueryFirstOrDefault<Alumno>(sql, new{legajo = legajo});
         }
         return alumno;
     }

@@ -29,20 +29,27 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
-    public IActionResult LitadoAlumos()
+    public IActionResult ListadoAlumnos()
     {
-        ViewBag.ListaAlumnos= BD.GetListadoAlumnos();
+        ViewBag.ListaAlumnos = BD.GetListadoAlumnos();
+        Console.WriteLine(BD.GetListadoAlumnos());
         return View();
     }
 
-    public IActionResult DetalleAlumno(string legajo)
+    [HttpPost]
+    public IActionResult DetalleAlumnos(string legajo)
     {
-        ViewBag.Alumno= BD.GetDetalleAlumno(legajo);
+        Alumno alumno= BD.GetDetalleAlumnos(legajo);
+        if(alumno == null)
+        {
+            return View("BuscarAlumno");
+        }else{
+            ViewBag.Alumno= alumno; }
         return View();
     }
     
-    public IActionResult GetLegajo(string legajo)
+    public IActionResult GetLegajo()
     {
-        return View("BuscarAlumo");
+        return View("BuscarAlumno");
     }
 }

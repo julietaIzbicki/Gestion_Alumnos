@@ -1,0 +1,14 @@
+<main>
+    <div>
+        <h1>Listado alumnos</h1>
+        @foreach (Alumno a in ViewBag.ListaAlumnos)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@a.Nombre @a.Apellido</h5>
+                    <a href='@Url.Action("Index", "Home")'class="btn btn-primary">Volver</a>
+                </div>
+            </div>
+        }
+    </div>
+</main>
