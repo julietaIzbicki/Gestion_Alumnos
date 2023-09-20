@@ -22,7 +22,7 @@ public static class BD
         Alumno alumno= null ;
         using (SqlConnection BD = new SqlConnection(_connectionString))
         {
-            string sql = "SELECT Nombre, Apellido, Curso FROM Alumnos WHERE Legajo = @legajo;";
+            string sql = "SELECT Alumnos.Nombre, Alumnos.Apellido, Alumnos.Curso FROM Alumnos INNER JOIN Notas ON Notas.idNota = Alumnos.idNota WHERE Legajo = @legajo;";
             alumno = BD.QueryFirstOrDefault<Alumno>(sql, new{legajo = legajo});
         }
         return alumno;
